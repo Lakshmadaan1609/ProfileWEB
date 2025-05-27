@@ -7,11 +7,11 @@ export const ThemeToggle = () => {
     useEffect(() => {
         const storedTheme = localStorage.getItem("theme");
         if (storedTheme === "dark") {
-          setIsDarkMode(true);
+          setIsDarkMode(false);
           document.documentElement.classList.add("dark");
         } else {
           localStorage.setItem("theme", "light");
-          setIsDarkMode(false);
+          setIsDarkMode(true);
         }
       }, []);
     
@@ -35,10 +35,11 @@ export const ThemeToggle = () => {
             aria-label="Toggle theme"
         >
             {isDarkMode ? (
-                <Sun className="h-6 w-6 text-yellow-500" />
-            ) : (
                 <Moon className="h-6 w-6 text-blue-900" />
+            ) : (
+                <Sun className="h-6 w-6 text-yellow-500" />
             )}
         </button>
-    );
+    ); 
 }; 
+
