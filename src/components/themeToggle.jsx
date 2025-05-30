@@ -7,31 +7,30 @@ export const ThemeToggle = () => {
     useEffect(() => {
         const storedTheme = localStorage.getItem("theme");
         if (storedTheme === "dark") {
-          setIsDarkMode(false);
+          setIsDarkMode(true);
           document.documentElement.classList.add("dark");
         } else {
           localStorage.setItem("theme", "light");
-          setIsDarkMode(true);
+          setIsDarkMode(false);
         }
-      }, []);
-    
+    }, []);
     
     const toggleTheme = () => {
-    if (isDarkMode) {
-        document.documentElement.classList.remove("dark");
-        localStorage.setItem("theme", "light");
-        setIsDarkMode(false);
-    } else {
-        document.documentElement.classList.add("dark");
-        localStorage.setItem("theme", "dark");
-        setIsDarkMode(true);
-    }
- };
+        if (isDarkMode) {
+            document.documentElement.classList.remove("dark");
+            localStorage.setItem("theme", "light");
+            setIsDarkMode(false);
+        } else {
+            document.documentElement.classList.add("dark");
+            localStorage.setItem("theme", "dark");
+            setIsDarkMode(true);
+        }
+    };
 
     return (
         <button 
             onClick={toggleTheme}
-            className="fixed top-4 right-4 p-3 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors shadow-lg z-50"
+            className="fixed top-4 right-20 md:right-4 p-3 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors shadow-lg z-50"
             aria-label="Toggle theme"
         >
             {isDarkMode ? (
