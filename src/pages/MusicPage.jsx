@@ -1,11 +1,10 @@
 import { Link } from "react-router-dom";
-import { StarBackground } from "@/components/StarBackground";
+import { ThemeBackground } from "@/components/ThemeBackground";
 import perPhoto from "@/assets/per_photo11.jpg";
 
 export const MusicPage = () => {
-    return (
-        <div className="min-h-screen bg-background">
-            <StarBackground />
+    return (        <div className="min-h-screen bg-background">
+            <ThemeBackground />
             <div className="container mx-auto px-4 py-8">
                 <div className="flex items-center justify-between mb-8">
                     <h1 className="text-3xl font-bold">
