@@ -26,7 +26,7 @@ export const AboutSection = () => {
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center">
-                        <a href="#contact" className="inline-block bg-yellow-600 hover:bg-yellow-700 text-white px-6 py-3 rounded-lg transition-colors duration-100 font-medium">
+                        <a href="https://mail.google.com/mail/u/0/#inbox?compose=DmwnWsdDxHThRBVznXbhtqrRSZrGmSKzNMsGgGMfJJFdqTqJTzClXKLlHQVFVncMBZbqMwPQhLng" className="inline-block bg-yellow-600 hover:bg-yellow-700 text-white px-6 py-3 rounded-lg transition-colors duration-100 font-medium">
                             Get in Touch
                         </a>
                         <a href="/Laksh_Resume.pdf" 

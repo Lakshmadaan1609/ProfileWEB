@@ -12,25 +12,28 @@ const navItems = [
 ]
 
 export const Navbar = () => {
-    const [isScrolled, setIsScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isVisible, setIsVisible] = useState(true);
+    const [lastScrollY, setLastScrollY] = useState(0);
 
-    useEffect (() => {
-       const handleScroll = () => {
-           setIsScrolled(window.screenY > 10);
-       };
-       
-       window.addEventListener("Scroll", handleScroll);
-       return () => window.removeEventListener("scroll", handleScroll);
-    }, [])
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+            setIsVisible(currentScrollY <= lastScrollY);
+            setLastScrollY(currentScrollY);
+        };
+        
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, [lastScrollY]);
 
     return (
-      <nav className = {cn(
-        "fixed w-full z-40 transition-all duration-300",
-        isScrolled ? "py-3 bg-background/80 backdrop-blur-md shadow-xs" : "py-5"
+      <nav className={cn(
+        "fixed w-full z-40 transition-all duration-300 py-5",
+        !isVisible && "-translate-y-full"
       )}>
-        <div className="container mx-auto px-4 flex items-center justify-between">
-            <a className="text-xl font-bold text-yellow-600 flex items-center">
+        <div className="container mx-auto px-4 flex items-center justify-center">
+            <a className="text-xl font-bold text-yellow-600 flex items-center absolute left-4">
                 <span className="relative z-10">
                     <span className="text-glow text-foreground"> LaKsH </span>
                     <span className="bg-yellow-600 font-italic text-white p-1 rounded-md hover:scale-105 hover:shadow-lg hover:shadow-yellow-600/50 transition-all duration-200 cursor-pointer">Portfolio</span>
@@ -38,7 +41,7 @@ export const Navbar = () => {
             </a>
 
             {/* desktop nav*/}
-            <div className="hidden md:flex items-center space-x-8">
+            <div className="hidden lg:flex items-center space-x-8">
                 {navItems.map((item, key) => (
                     item.isExternal ? (
                         <Link 
@@ -64,7 +67,7 @@ export const Navbar = () => {
 
             {/* Mobile menu button */}
             <button 
-                className="block md:hidden p-2 text-foreground"
+                className="block lg:hidden p-2 text-foreground"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 aria-label="Toggle menu"
             >
@@ -78,7 +81,7 @@ export const Navbar = () => {
             {/*mobile menu*/}
             <div className={cn(
                 "fixed inset-0 bg-background/95 backdrop-blur-md z-40 flex flex-col items-center justify-center",
-                "transition-all duration-300 md:hidden",
+                "transition-all duration-300 lg:hidden",
                 isMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
             )}>
                 <div className="flex flex-col items-center space-y-8 text-xl">
