@@ -30,11 +30,11 @@ const socialLinks = [
 ];
 
 const quickLinks = [
-    { name: "Home", href: "/#hero" },
-    { name: "About", href: "/#about" },
-    { name: "Skills", href: "/#skills" },
-    { name: "Projects", href: "/#projects" },
-    { name: "Music", href: "/music" }
+    { name: "Home", href: "#hero", isRoute: false },
+    { name: "About", href: "#about", isRoute: false },
+    { name: "Skills", href: "#skills", isRoute: false },
+    { name: "Projects", href: "#projects", isRoute: false },
+    { name: "Music", href: "/music", isRoute: true }
 ];
 
 export const Footer = () => {
@@ -77,12 +77,21 @@ export const Footer = () => {
                                     whileInView={{ opacity: 1, x: 0 }}
                                     transition={{ duration: 0.5, delay: index * 0.1 }}
                                 >
-                                    <Link 
-                                        to={link.href}
-                                        className="text-gray-600 dark:text-gray-400 hover:text-yellow-600 transition-colors"
-                                    >
-                                        {link.name}
-                                    </Link>
+                                    {link.isRoute ? (
+                                        <Link
+                                            to={link.href}
+                                            className="text-gray-600 dark:text-gray-400 hover:text-yellow-600 transition-colors"
+                                        >
+                                            {link.name}
+                                        </Link>
+                                    ) : (
+                                        <a
+                                            href={link.href}
+                                            className="text-gray-600 dark:text-gray-400 hover:text-yellow-600 transition-colors"
+                                        >
+                                            {link.name}
+                                        </a>
+                                    )}
                                 </motion.li>
                             ))}
                         </ul>
