@@ -1,4 +1,4 @@
-import { href } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
@@ -6,9 +6,9 @@ import { Menu, X } from "lucide-react";
 const navItems = [
     {name : "Home", href: "#hero"},
     {name : "About", href: "#about"},
-    {name : "Skills", href: "#Skills"},
+    {name : "Skills", href: "#skills"},
     {name : "Projects", href: "#projects"},
-    {name : "Music", href: "#music"},
+    {name : "Music", href: "/music", isExternal: true},
 ]
 
 export const Navbar = () => {
@@ -40,14 +40,25 @@ export const Navbar = () => {
             {/* desktop nav*/}
             <div className="hidden md:flex items-center space-x-8">
                 {navItems.map((item, key) => (
-                    <a 
-                        key={key} 
-                        href={item.href}
-                        className="text-foreground hover:text-yellow-600 hover:scale-105 transition-all 
-                        duration-100 hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]"
-                    >
-                       {item.name}
-                    </a>
+                    item.isExternal ? (
+                        <Link 
+                            key={key} 
+                            to={item.href}
+                            className="text-foreground hover:text-yellow-600 hover:scale-105 transition-all 
+                            duration-100 hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]"
+                        >
+                            {item.name}
+                        </Link>
+                    ) : (
+                        <a 
+                            key={key} 
+                            href={item.href}
+                            className="text-foreground hover:text-yellow-600 hover:scale-105 transition-all 
+                            duration-100 hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]"
+                        >
+                            {item.name}
+                        </a>
+                    )
                 ))}
             </div>
 
@@ -72,15 +83,27 @@ export const Navbar = () => {
             )}>
                 <div className="flex flex-col items-center space-y-8 text-xl">
                     {navItems.map((item, key) => (
-                        <a 
-                            key={key} 
-                            href={item.href}
-                            className="text-foreground hover:text-yellow-600 hover:scale-105 transition-all 
-                            duration-100 hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]"
-                            onClick={() => setIsMenuOpen(false)}
-                        >
-                            {item.name}
-                        </a>
+                        item.isExternal ? (
+                            <Link 
+                                key={key} 
+                                to={item.href}
+                                className="text-foreground hover:text-yellow-600 hover:scale-105 transition-all 
+                                duration-100 hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]"
+                                onClick={() => setIsMenuOpen(false)}
+                            >
+                                {item.name}
+                            </Link>
+                        ) : (
+                            <a 
+                                key={key} 
+                                href={item.href}
+                                className="text-foreground hover:text-yellow-600 hover:scale-105 transition-all 
+                                duration-100 hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]"
+                                onClick={() => setIsMenuOpen(false)}
+                            >
+                                {item.name}
+                            </a>
+                        )
                     ))}
                 </div>
             </div>

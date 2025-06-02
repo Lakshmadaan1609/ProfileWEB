@@ -68,6 +68,15 @@
   }
 }
 
+@keyframes cloud {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(120vw);
+  }
+}
+
 @layer base {
   :root {
     --background: 210 40% 98%;
@@ -170,6 +179,11 @@
     @apply absolute bg-gradient-to-r from-white via-white to-transparent rounded-full;
     box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.3);
   }
+}
+  .animate-cloud {
+    animation-name: cloud;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
 }
 
 #root {
