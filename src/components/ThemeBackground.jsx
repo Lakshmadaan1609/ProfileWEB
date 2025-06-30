@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { StarBackground } from "./StarBackground";
+import StarBackground from "./StarBackground";
 import SkyBackground from "./SkyBackground";
 
 /**
@@ -36,3 +36,5 @@ export const ThemeBackground = () => {
         return () => observer.disconnect();
     }, []);    return isDarkMode ? <StarBackground /> : <SkyBackground />;
 };
+
+export default ThemeBackground;
