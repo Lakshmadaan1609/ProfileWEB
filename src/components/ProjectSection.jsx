@@ -1,12 +1,16 @@
 import { useState } from "react";
-import { Github, ExternalLink, X } from "lucide-react";
+import { Github, ExternalLink, X, Triangle } from "lucide-react";
 import "keen-slider/keen-slider.min.css";
 import { useKeenSlider } from "keen-slider/react";
+import { Transition } from "@headlessui/react";
 
 // Placeholder images (replace with real images if available)
-import placeholderImg from "../assets/JavaImg.png";
 import zakoMomoImg from "../assets/zako-momo.png";
 import powerpayImg from "../assets/power-Pay.png";
+import placeholderImg from "../assets/engineerworks.png";
+import humanActivityImg from "../assets/HAR.jpeg";
+import cancerDetectionImg from "../assets/pcd.jpeg";
+
 
 // Top 3 featured projects (custom order)
 const featuredProjects = [
@@ -20,12 +24,12 @@ const featuredProjects = [
   },
   {
     title: "EngineerWorks",
-    description: "A platform for engineering solutions ... (replace with real description)",
+    description: "A FullStack platform for engineering solutions Access to admin dashboard",
     image: placeholderImg,
     github: "https://github.com/Lakshmadaan1609/EngineerWorks",
-    live: "",
-    tags: ["React", "Express"],
-    highlights: ["Feature 1", "Feature 2", "Feature 3"],
+    live: "https://engineering-works-full-stack-mern.vercel.app/",
+    tags: ["React", "Express","MongoDB","Node.js"],
+    highlights: ["MERN STACK", "Admin Dashboard", "User Dashboard"],
   },
   {
     title: "Powerpay",
@@ -42,7 +46,7 @@ const otherProjects = [
   {
     title: "Human Activity Detection",
     description: "Detecting The Human Physical Movement from Analyzing Activity Data",
-    image: placeholderImg,
+    image: humanActivityImg,
     github: "https://github.com/Lakshmadaan1609/Human-Activity-Recognition",
     live: "",
     tags: ["Python", "Scikit-learn", "Machine Learning"],
@@ -51,7 +55,7 @@ const otherProjects = [
   {
     title: "Personalised Cancer Detection",
     description: "A Collaborative Research On Detecting the Cancer Before it Generation",
-    image: placeholderImg,
+    image: cancerDetectionImg,
     github: "https://github.com/Lakshmadaan1609/Personalised-Cancer-Diagnosis-",
     live: "",
     tags: ["Python", "Scikit-learn", "Machine Learning"],
@@ -146,19 +150,46 @@ function ProjectCard({ project, onView, isFeatured }) {
             ))}
           </div>
         </div>
-        <button
-          className={isFeatured
-            ? "mt-auto flex items-center gap-2 bg-yellow-400 text-[#181f2a] hover:bg-yellow-500 font-semibold px-6 py-3 rounded transition-all duration-200 ease-in-out shadow hover:shadow-lg active:scale-95 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-            : "mt-auto flex items-center gap-2 bg-white text-[#181f2a] hover:bg-yellow-400 hover:text-black font-semibold px-4 py-2 rounded transition-all duration-200 shadow hover:shadow-lg active:scale-95 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-          }
-          onClick={onView}
-        >
-          <svg width={isFeatured ? "22" : "18"} height={isFeatured ? "22" : "18"} fill="none" stroke="currentColor" strokeWidth="2">
-            <rect x="3" y="3" width={isFeatured ? "16" : "12"} height={isFeatured ? "16" : "12"} rx={isFeatured ? "4" : "2"} />
-            <path d="M{isFeatured ? 11 : 9} {isFeatured ? 11 : 9}h.01" />
-          </svg>
-          View Project
-        </button>
+        {/* Action buttons for featured, icons for other */}
+        {isFeatured ? (
+          <button
+            className="mt-auto flex items-center gap-2 bg-yellow-400 text-[#181f2a] hover:bg-yellow-500 font-semibold px-6 py-3 rounded transition-all duration-200 ease-in-out shadow hover:shadow-lg active:scale-95 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            onClick={onView}
+          >
+            <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2">
+              <rect x="3" y="3" width="16" height="16" rx="4" />
+              <path d="M11 11h.01" />
+            </svg>
+            View Project
+          </button>
+        ) : (
+          <div className="flex gap-4 mt-4">
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-300 hover:text-yellow-400 transition"
+              title="GitHub"
+            >
+              <Github size={22} />
+            </a>
+            {project.live ? (
+              <a
+                href={project.live}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-300 hover:text-green-400 transition"
+                title="Live (Vercel)"
+              >
+                <ExternalLink size={22} />
+              </a>
+            ) : (
+              <span className="text-gray-400" title="No live link">
+                <Triangle size={22} />
+              </span>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
@@ -166,6 +197,7 @@ function ProjectCard({ project, onView, isFeatured }) {
 
 export default function ProjectSection() {
   const [modalProject, setModalProject] = useState(null);
+  const [showOtherProjects, setShowOtherProjects] = useState(false);
   const [sliderRef, slider] = useKeenSlider({
     loop: true,
     slides: { perView: 1 },
@@ -239,50 +271,59 @@ export default function ProjectSection() {
           </div>
         </div>
 
-        {/* Other Projects */}
-        <div className="relative">
-          <h3 className="text-2xl font-bold text-white mb-6">Other Projects</h3>
+        {/* Other Projects Dropdown */}
+        <div className="relative mt-12">
           <button
-            className="absolute left-0 top-1/2 -translate-y-1/2 bg-[#181f2a] hover:bg-yellow-600/20 text-white rounded-full p-2 shadow transition z-10"
-            onClick={() => otherSlider.current?.prev()}
-            aria-label="Previous other project"
-            style={{ left: '-2.5rem' }}
+            className="flex items-center gap-2 px-6 py-3 bg-yellow-400 text-[#181f2a] font-semibold rounded-full shadow hover:bg-yellow-500 transition mb-4 mx-auto"
+            onClick={() => setShowOtherProjects((prev) => !prev)}
+            aria-expanded={showOtherProjects}
           >
-            <svg width="32" height="32" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 26l-8-10 8-10" /></svg>
+            {showOtherProjects ? "Hide Other Projects" : "Show Other Projects"}
+            <svg
+              className={`transition-transform duration-300 ${showOtherProjects ? "rotate-180" : "rotate-0"}`}
+              width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2"
+            >
+              <path d="M6 9l6 6 6-6" />
+            </svg>
           </button>
-          <div ref={otherSliderRef} className="keen-slider">
-            {otherProjects.map((project, idx) => (
-              <ProjectCard
-                key={project.title + idx}
-                project={project}
-                isFeatured={false}
-                onView={e => { e.stopPropagation(); setModalProject(project); }}
-              />
-            ))}
-          </div>
-          <button
-            className="absolute right-0 top-1/2 -translate-y-1/2 bg-[#181f2a] hover:bg-yellow-600/20 text-white rounded-full p-2 shadow transition z-10"
-            onClick={() => otherSlider.current?.next()}
-            aria-label="Next other project"
-            style={{ right: '-2.5rem' }}
+          <Transition
+            show={showOtherProjects}
+            enter="transition duration-300 ease-out"
+            enterFrom="opacity-0 -translate-y-4"
+            enterTo="opacity-100 translate-y-0"
+            leave="transition duration-200 ease-in"
+            leaveFrom="opacity-100 translate-y-0"
+            leaveTo="opacity-0 -translate-y-4"
           >
-            <svg width="32" height="32" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 6l8 10-8 10" /></svg>
-          </button>
-          {/* Dots for Other Projects */}
-          <div className="flex justify-center gap-2 mt-6">
-            {Array.from({ length: Math.ceil(otherProjects.length / getPerView(otherSlider)) }).map((_, i) => (
-              <button
-                key={i}
-                className={`w-3 h-3 rounded-full ${
-                  otherSlider.current && Math.floor(otherSlider.current.track.details.rel / getPerView(otherSlider)) === i
-                    ? "bg-yellow-400"
-                    : "bg-gray-600"
-                }`}
-                onClick={() => otherSlider.current?.moveToIdx(i * getPerView(otherSlider))}
-                aria-label={`Go to other project page ${i + 1}`}
-              />
-            ))}
-          </div>
+            <div>
+              <h3 className="text-2xl font-bold text-white mb-6">Other Projects</h3>
+              <div ref={otherSliderRef} className="keen-slider">
+                {otherProjects.map((project, idx) => (
+                  <ProjectCard
+                    key={project.title + idx}
+                    project={project}
+                    isFeatured={false}
+                    onView={e => { e.stopPropagation(); setModalProject(project); }}
+                  />
+                ))}
+              </div>
+              {/* Dots for Other Projects */}
+              <div className="flex justify-center gap-2 mt-6">
+                {Array.from({ length: Math.ceil(otherProjects.length / getPerView(otherSlider)) }).map((_, i) => (
+                  <button
+                    key={i}
+                    className={`w-3 h-3 rounded-full ${
+                      otherSlider.current && Math.floor(otherSlider.current.track.details.rel / getPerView(otherSlider)) === i
+                        ? "bg-yellow-400"
+                        : "bg-gray-600"
+                    }`}
+                    onClick={() => otherSlider.current?.moveToIdx(i * getPerView(otherSlider))}
+                    aria-label={`Go to other project page ${i + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
+          </Transition>
         </div>
 
         {/* Modal for Project Details */}
