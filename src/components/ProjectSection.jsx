@@ -10,6 +10,7 @@ import powerpayImg from "../assets/power-Pay.png";
 import placeholderImg from "../assets/engineerworks.png";
 import humanActivityImg from "../assets/HAR.jpeg";
 import cancerDetectionImg from "../assets/pcd.jpeg";
+import bedImg from "../assets/bed.png";
 
 
 // Top 3 featured projects (custom order)
@@ -37,6 +38,15 @@ const featuredProjects = [
     github: "https://github.com/Lakshmadaan1609/Powerpay",
     live: "https://power-pay-full-stack.vercel.app/",
     tags: ["Fintech", "Payments"],
+    highlights: ["Feature 1", "Feature 2", "Feature 3"],
+  },
+  {
+    title: "BlissFull Beds",
+    description: "E-commerce platform for premium bedding and furniture",
+    image: bedImg,
+    github: "https://github.com/Lakshmadaan1609/bliss-full-beds",
+    live: "https://bliss-full-beds-e-comm.vercel.app/",
+    tags: ["E-commerce", "React", "Node.js"],
     highlights: ["Feature 1", "Feature 2", "Feature 3"],
   },
 ];
