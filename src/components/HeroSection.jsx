@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import myPhoto from "../assets/my-photo-2.jpg";
+import myPhoto from "../assets/my-photo-2.png";
 import { Github, Linkedin } from "lucide-react";
 
 export const HeroSection = () => {
@@ -9,7 +8,6 @@ export const HeroSection = () => {
             className="relative min-h-screen flex items-center justify-center px-4"
         >
             <div className="container max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 px-4 py-12">
-                {/* Left: Text Content */}
                 <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
                     <span className="text-lg text-gray-300 mb-2">Hello, I'm</span>
                     <h1 className="text-5xl md:text-6xl font-extrabold text-white mb-2">
@@ -19,20 +17,39 @@ export const HeroSection = () => {
                     <h2 className="text-2xl md:text-3xl font-semibold text-gray-300 mb-4">
                         Web Developer 
                     </h2>
+                    <div className="flex gap-4 justify-center md:justify-start mb-6">
+                        <a
+                            href="https://github.com/yourusername"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#23263a] text-white transition-all duration-200 shadow-lg border border-gray-700 hover:scale-105 hover:shadow-xl hover:bg-gradient-to-r hover:from-black hover:to-gray-800"
+                            aria-label="GitHub"
+                        >
+                            <Github size={20} />
+                            <span className="hidden sm:inline">GitHub</span>
+                        </a>
+                        <a
+                            href="https://linkedin.com/in/laksh-madaan-287009314"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#23263a] text-white transition-all duration-200 shadow-lg border border-gray-700 hover:scale-105 hover:shadow-xl hover:bg-gradient-to-r hover:from-blue-700 hover:to-blue-400"
+                            aria-label="LinkedIn"
+                        >
+                            <Linkedin size={20} />
+                            <span className="hidden sm:inline">LinkedIn</span>
+                        </a>
+                    </div>
                     <p className="text-gray-400 max-w-xl mb-8">
                         I build modern, responsive web applications and bring creative digital solutions to life..
                     </p>
                 </div>
-                {/* Right: Profile Image */}
                 <div className="flex-1 flex justify-center md:justify-end">
-                    <div className="relative w-64 h-64 md:w-80 md:h-80 flex items-center justify-center">
-                        <img
-                            src={myPhoto}
-                            alt="Laksh Madaan"
-                            className="w-full h-full object-cover rounded-full border-4 border-gray-700 shadow-lg"
-                            style={{ background: "#6c47b6" }}
-                        />
-                    </div>
+                    <img
+                        src={myPhoto}
+                        alt="Laksh Madaan"
+                        className="w-64 h-64 md:w-80 md:h-80 object-cover rounded-full shadow-lg"
+                        style={{ background: "#6c47b6" }}
+                    />
                 </div>
             </div>
         </section>

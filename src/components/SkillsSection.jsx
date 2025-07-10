@@ -1,16 +1,8 @@
 import { motion } from "framer-motion";
 import { useRef, useState } from "react";
-
-// Example SVG/icon imports (replace with your own or use emoji fallback)
-// import PostgresIcon from '../assets/postgres.svg';
-// ...
-
-// Import SVGs or images for logos
 import reactLogo from '../assets/react.svg';
-// Add more imports as you add SVGs to assets (e.g., postgres, docker, etc.)
 
 export const SkillsSection = () => {
-  // List of tech logos (replace emoji with SVGs or images as needed)
   const techs = [
     { name: "PostgreSQL", icon: <img src="https://www.vectorlogo.zone/logos/postgresql/postgresql-icon.svg" alt="PostgreSQL" className="h-[50px] w-auto" /> },
     { name: "GraphQL", icon: <img src="https://www.vectorlogo.zone/logos/graphql/graphql-icon.svg" alt="GraphQL" className="h-[50px] w-auto" /> },
@@ -41,19 +33,15 @@ export const SkillsSection = () => {
     { name: "Linux", icon: <img src="https://www.vectorlogo.zone/logos/linux/linux-icon.svg" alt="Linux" className="h-[50px] w-auto" /> },
   ];
 
-  // Duplicate the array for seamless looping
   const sliderTechs = [...techs, ...techs];
-
-  // Parallax effect state
   const [parallaxY, setParallaxY] = useState(0);
   const containerRef = useRef(null);
 
-  // Parallax mouse move handler
   const handleMouseMove = (e) => {
     const rect = containerRef.current.getBoundingClientRect();
     const y = e.clientY - rect.top;
     const percent = y / rect.height;
-    setParallaxY((percent - 0.5) * 20); // Range: -10px to +10px
+    setParallaxY((percent - 0.5) * 20);
   };
   const handleMouseLeave = () => setParallaxY(0);
 
