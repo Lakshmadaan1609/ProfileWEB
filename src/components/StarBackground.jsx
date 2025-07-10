@@ -57,6 +57,8 @@ export const StarBackground = () => {
 
     return (
         <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+            {/* Enhanced cosmic gradient background */}
+            <div className="absolute inset-0 w-full h-full pointer-events-none z-[-1] bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-[#1a2980] via-[#6d3093] via-60% to-[#26d0ce] opacity-70" />
             {stars.map((star) => (
                 <div
                     key={star.id}
@@ -81,7 +83,6 @@ export const StarBackground = () => {
             height: meteor.size * 2 + "px",
             left: meteor.x + "%",
             top: meteor.y + "%",
-            
             animationDelay: meteor.delay,
             animationDuration: meteor.animationDuration + "s",
           }}

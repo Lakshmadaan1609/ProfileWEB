@@ -307,31 +307,31 @@ export default function ProjectSection() {
           >
             <div>
               <h3 className="text-2xl font-bold text-white mb-6">Other Projects</h3>
-              <div ref={otherSliderRef} className="keen-slider">
-                {otherProjects.map((project, idx) => (
+          <div ref={otherSliderRef} className="keen-slider">
+            {otherProjects.map((project, idx) => (
                   <ProjectCard
-                    key={project.title + idx}
+                key={project.title + idx}
                     project={project}
                     isFeatured={false}
                     onView={e => { e.stopPropagation(); setModalProject(project); }}
                   />
                 ))}
               </div>
-              {/* Dots for Other Projects */}
-              <div className="flex justify-center gap-2 mt-6">
-                {Array.from({ length: Math.ceil(otherProjects.length / getPerView(otherSlider)) }).map((_, i) => (
-                  <button
-                    key={i}
-                    className={`w-3 h-3 rounded-full ${
-                      otherSlider.current && Math.floor(otherSlider.current.track.details.rel / getPerView(otherSlider)) === i
-                        ? "bg-yellow-400"
-                        : "bg-gray-600"
-                    }`}
-                    onClick={() => otherSlider.current?.moveToIdx(i * getPerView(otherSlider))}
-                    aria-label={`Go to other project page ${i + 1}`}
-                  />
-                ))}
-              </div>
+          {/* Dots for Other Projects */}
+          <div className="flex justify-center gap-2 mt-6">
+            {Array.from({ length: Math.ceil(otherProjects.length / getPerView(otherSlider)) }).map((_, i) => (
+              <button
+                key={i}
+                className={`w-3 h-3 rounded-full ${
+                  otherSlider.current && Math.floor(otherSlider.current.track.details.rel / getPerView(otherSlider)) === i
+                    ? "bg-yellow-400"
+                    : "bg-gray-600"
+                }`}
+                onClick={() => otherSlider.current?.moveToIdx(i * getPerView(otherSlider))}
+                aria-label={`Go to other project page ${i + 1}`}
+              />
+            ))}
+          </div>
             </div>
           </Transition>
         </div>

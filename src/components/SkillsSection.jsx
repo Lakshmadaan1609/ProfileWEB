@@ -1,102 +1,110 @@
-import { useState } from "react";
-import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+import { useRef, useState } from "react";
 
-const skills = [
-  // Frontend
-  { name: "HTML/CSS", level: 95, category: "frontend", icon: "🌐" },
-  { name: "JavaScript", level: 90, category: "frontend", icon: "⚡" },
-  { name: "React", level: 70, category: "frontend", icon: "⚛️" },
-  { name: "Tailwind CSS", level: 70, category: "frontend", icon: "🎨" },
+// Example SVG/icon imports (replace with your own or use emoji fallback)
+// import PostgresIcon from '../assets/postgres.svg';
+// ...
 
-  // Backend
-  { name: "Node.js", level: 10, category: "backend", icon: "🟢" },
-  { name: "Express", level: 5, category: "backend", icon: "🚂" },
-  { name: "MongoDB", level: 20, category: "backend", icon: "🍃" },
-  { name: "PostgreSQL", level: 10, category: "backend", icon: "🐘" },
-  
-
-  // Tools
-  { name: "Git/GitHub", level: 70, category: "tools", icon: "📦" },
-  { name: "Dockers", level: 90, category: "tools", icon: "🐳" },
-  { name: "Figma", level: 0, category: "tools", icon: "🎯" },
-  { name: "VS Code", level: 95, category: "tools", icon: "💻" },
-];
-
-const categories = ["all", "frontend", "backend", "tools"];
+// Import SVGs or images for logos
+import reactLogo from '../assets/react.svg';
+// Add more imports as you add SVGs to assets (e.g., postgres, docker, etc.)
 
 export const SkillsSection = () => {
-  const [activeCategory, setActiveCategory] = useState("all");
+  // List of tech logos (replace emoji with SVGs or images as needed)
+  const techs = [
+    { name: "PostgreSQL", icon: <img src="https://www.vectorlogo.zone/logos/postgresql/postgresql-icon.svg" alt="PostgreSQL" className="h-[50px] w-auto" /> },
+    { name: "GraphQL", icon: <img src="https://www.vectorlogo.zone/logos/graphql/graphql-icon.svg" alt="GraphQL" className="h-[50px] w-auto" /> },
+    { name: "Figma", icon: <img src="https://www.vectorlogo.zone/logos/figma/figma-icon.svg" alt="Figma" className="h-[50px] w-auto" /> },
+    { name: "AWS", icon: <img src="https://www.vectorlogo.zone/logos/amazon_aws/amazon_aws-icon.svg" alt="AWS" className="h-[50px] w-auto" /> },
+    { name: "Docker", icon: <img src="https://www.vectorlogo.zone/logos/docker/docker-icon.svg" alt="Docker" className="h-[50px] w-auto" /> },
+    { name: "Redis", icon: <img src="https://www.vectorlogo.zone/logos/redis/redis-icon.svg" alt="Redis" className="h-[50px] w-auto" /> },
+    { name: "MongoDB", icon: <img src="https://www.vectorlogo.zone/logos/mongodb/mongodb-icon.svg" alt="MongoDB" className="h-[50px] w-auto" /> },
+    { name: "React", icon: <img src={reactLogo} alt="React" className="h-[50px] w-auto" /> },
+    { name: "TypeScript", icon: <img src="https://www.vectorlogo.zone/logos/typescriptlang/typescriptlang-icon.svg" alt="TypeScript" className="h-[50px] w-auto" /> },
+    { name: "Node.js", icon: <img src="https://www.vectorlogo.zone/logos/nodejs/nodejs-icon.svg" alt="Node.js" className="h-[50px] w-auto" /> },
+    { name: "Langchain", icon: <img src="https://raw.githubusercontent.com/langchain-ai/langchain/master/docs/static/img/favicon.ico" alt="Langchain" className="h-[50px] w-auto rounded-full bg-white" /> },
+    { name: "Vercel", icon: (
+      <span className="flex items-center justify-center h-[50px] w-[50px] rounded-full bg-black">
+        <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="16,6 28,26 4,26" fill="white" />
+        </svg>
+      </span>
+    ) },
+    { name: "Next.js", icon: (
+      <span className="flex items-center justify-center h-[50px] w-[50px] rounded-full bg-black">
+        <span className="text-white text-3xl font-bold">N</span>
+      </span>
+    ) },
+    { name: "Pinecone", icon: <img src="https://avatars.githubusercontent.com/u/78025208?s=200&v=4" alt="Pinecone" className="h-[50px] w-auto rounded-full bg-white" /> },
+    { name: "TailwindCSS", icon: <img src="https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg" alt="TailwindCSS" className="h-[50px] w-auto" /> },
+    { name: "Python", icon: <img src="https://www.vectorlogo.zone/logos/python/python-icon.svg" alt="Python" className="h-[50px] w-auto" /> },
+    { name: "Linux", icon: <img src="https://www.vectorlogo.zone/logos/linux/linux-icon.svg" alt="Linux" className="h-[50px] w-auto" /> },
+  ];
 
-  const filteredSkills = skills.filter(
-    (skill) => activeCategory === "all" || skill.category === activeCategory
-  );
+  // Duplicate the array for seamless looping
+  const sliderTechs = [...techs, ...techs];
+
+  // Parallax effect state
+  const [parallaxY, setParallaxY] = useState(0);
+  const containerRef = useRef(null);
+
+  // Parallax mouse move handler
+  const handleMouseMove = (e) => {
+    const rect = containerRef.current.getBoundingClientRect();
+    const y = e.clientY - rect.top;
+    const percent = y / rect.height;
+    setParallaxY((percent - 0.5) * 20); // Range: -10px to +10px
+  };
+  const handleMouseLeave = () => setParallaxY(0);
 
   return (
-    <section id="skills" className="py-24 px-4 relative bg-white/5 backdrop-blur-sm mt-25">
-      <div className="container mx-auto max-w-5xl">
-        <motion.h2 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-3xl md:text-4xl font-bold mb-12 text-center"
+    <section id="skills" className="py-24 px-4">
+      <div className="container mx-auto max-w-6xl">
+        <h2 className="text-3xl md:text-4xl font-bold mb-2 text-center bg-gradient-to-r from-blue-500 via-yellow-400 to-yellow-600 dark:from-purple-400 dark:via-yellow-400 dark:to-yellow-600 bg-clip-text text-transparent">
+          Technologies I Work With <span className="text-base font-normal">(My Skills)</span>
+        </h2>
+        <p className="text-muted-foreground text-center mb-12">
+          Modern tools for modern solutions
+        </p>
+        <div
+          ref={containerRef}
+          className="relative w-full overflow-x-hidden overflow-y-hidden group"
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
         >
-          My <span className="text-yellow-600">Skills</span>
-        </motion.h2>
-
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
-          {categories.map((category, key) => (
-            <motion.button
-              key={key}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: key * 0.1 }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => setActiveCategory(category)}
-              className={cn(
-                "px-5 py-2 rounded-full transition-all duration-300 capitalize font-medium",
-                activeCategory === category
-                  ? "bg-yellow-600 text-white shadow-lg shadow-yellow-600/30"
-                  : "bg-white/10 text-gray-700 hover:bg-yellow-600/10"
-              )}
-            >
-              {category}
-            </motion.button>
-          ))}
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredSkills.map((skill, key) => (
-            <motion.div
-              key={key}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: key * 0.1 }}
-              whileHover={{ 
-                scale: 1.02,
-                boxShadow: "0 0 20px rgba(234, 179, 8, 0.1)"
-              }}
-              className="bg-white/10 backdrop-blur-sm border border-yellow-600/20 p-6 rounded-xl hover:bg-yellow-600/5 transition-all duration-300"
-            >
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-3">
-                  <span className="text-2xl">{skill.icon}</span>
-                  <h3 className="font-semibold text-lg">{skill.name}</h3>
-                </div>
-                <span className="text-yellow-600 font-medium">{skill.level}%</span>
+          <div
+            className="slider-track flex items-center gap-8 w-max py-2 group-hover:[animation-play-state:paused]"
+            style={{
+              animation: 'scroll-left 25s linear infinite',
+              transform: `translateY(${parallaxY}px)`
+            }}
+          >
+            {sliderTechs.map((tech, idx) => (
+              <div
+                key={tech.name + idx}
+                className="flex flex-col items-center justify-center min-w-[80px] px-2 md:min-w-[90px] md:px-4 transition-all duration-200 hover:scale-125 rounded-xl"
+              >
+                {tech.icon}
+                <span className="text-foreground text-xs md:text-sm mt-2 whitespace-nowrap text-center">{tech.name}</span>
               </div>
-              <div className="w-full bg-white/20 h-2 rounded-full overflow-hidden">
-                <motion.div
-                  initial={{ width: 0 }}
-                  whileInView={{ width: `${skill.level}%` }}
-                  transition={{ duration: 1, delay: 0.2 }}
-                  className="bg-yellow-600 h-2 rounded-full"
-                />
-              </div>
-            </motion.div>
-          ))}
+            ))}
+          </div>
         </div>
+        <style>{`
+          @keyframes scroll-left {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+          }
+          .slider-track {
+            width: max-content;
+            overflow-y: hidden !important;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+          }
+          .slider-track::-webkit-scrollbar {
+            display: none;
+          }
+        `}</style>
       </div>
     </section>
   );
