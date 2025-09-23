@@ -1,5 +1,35 @@
 @import "tailwindcss";
 
+/* Font Family Definitions */
+:root {
+  --font-header: 'Grand Hotel', cursive;
+  --font-body: 'Lato', sans-serif;
+}
+
+/* Apply fonts globally */
+body {
+  font-family: var(--font-body);
+}
+
+/* Header font classes */
+.font-header {
+  font-family: var(--font-header);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+/* Hide scrollbars for project sections */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 @theme {
   --color-border: hsl(var(--border));
   --color-background: hsl(var(--background));

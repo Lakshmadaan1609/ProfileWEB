@@ -1,400 +1,262 @@
+import { motion } from "framer-motion";
 import { useState } from "react";
-import { Github, ExternalLink, X, Triangle } from "lucide-react";
-import "keen-slider/keen-slider.min.css";
-import { useKeenSlider } from "keen-slider/react";
-import { Transition } from "@headlessui/react";
+import { ExternalLink, Github, Eye, ArrowUp } from "lucide-react";
+import { Link, Element } from "react-scroll";
+import lfwa from "../assets/lfwa.png";
+import powerPay from "../assets/power-Pay.png";
+import zakoMomo from "../assets/zako-momo.png";
+import har from "../assets/HAR.jpeg";
+import pcd from "../assets/pcd.jpeg";
+import bed from "../assets/bed.png";
 
-// Placeholder images (replace with real images if available)
-import zakoMomoImg from "../assets/zako-momo.png";
-import powerpayImg from "../assets/power-Pay.png";
-import placeholderImg from "../assets/engineerworks.png";
-import humanActivityImg from "../assets/HAR.jpeg";
-import cancerDetectionImg from "../assets/pcd.jpeg";
-import bedImg from "../assets/bed.png";
+export const ProjectSection = () => {
+  const [hoveredProject, setHoveredProject] = useState(null);
 
-
-// Top 3 featured projects (custom order)
-const featuredProjects = [
-  {
-    title: "ZakoMomo",
-    description: "Online Food Order. Payment Support. Partner With us.",
-    image: zakoMomoImg,
-    github: "https://github.com/Lakshmadaan1609/ZakoMomo",
-    live: "https://zako-momos.vercel.app/",
-    tags: ["React", "GSAP", "TailwindCSS"],
-  },
-  {
-    title: "EngineerWorks",
-    description: "A FullStack platform for engineering solutions Access to admin dashboard",
-    image: placeholderImg,
-    github: "https://github.com/Lakshmadaan1609/EngineerWorks",
-    live: "https://engineering-works-full-stack-mern.vercel.app/",
-    tags: ["React", "Express","MongoDB","Node.js"],
-    highlights: ["MERN STACK", "Admin Dashboard", "User Dashboard"],
-  },
-  {
-    title: "Powerpay",
-    image: powerpayImg,
-    github: "https://github.com/Lakshmadaan1609/Powerpay",
-    live: "https://power-pay-full-stack.vercel.app/",
-    tags: ["Fintech", "Payments"],
-    highlights: ["Feature 1", "Feature 2", "Feature 3"],
-  },
-  {
-    title: "BlissFull Beds",
-    description: "E-commerce platform for premium bedding and furniture",
-    image: bedImg,
-    github: "https://github.com/Lakshmadaan1609/bliss-full-beds",
-    live: "https://bliss-full-beds-e-comm.vercel.app/",
-    tags: ["E-commerce", "React", "Node.js"],
-    highlights: ["Feature 1", "Feature 2", "Feature 3"],
-  },
-];
-
-// Other projects (replace with real data from GitHub API if available)
-const otherProjects = [
-  {
-    title: "Human Activity Detection",
-    description: "Detecting The Human Physical Movement from Analyzing Activity Data",
-    image: humanActivityImg,
-    github: "https://github.com/Lakshmadaan1609/Human-Activity-Recognition",
-    live: "",
-    tags: ["Python", "Scikit-learn", "Machine Learning"],
-    highlights: ["ML model for activity recognition", "Data preprocessing pipeline", "Accuracy > 90%"],
-  },
-  {
-    title: "Personalised Cancer Detection",
-    description: "A Collaborative Research On Detecting the Cancer Before it Generation",
-    image: cancerDetectionImg,
-    github: "https://github.com/Lakshmadaan1609/Personalised-Cancer-Diagnosis-",
-    live: "",
-    tags: ["Python", "Scikit-learn", "Machine Learning"],
-    highlights: ["Early detection algorithms", "Personalized risk assessment", "Research collaboration"],
-  },
-  {
-    title: "Sample Project 1",
-    description: "This is a sample project description. Replace with real data.",
-    image: placeholderImg,
-    github: "https://github.com/Lakshmadaan1609/sample-project-1",
-    live: "",
-    tags: ["React", "Node.js"],
-    highlights: ["Feature 1", "Feature 2", "Feature 3"],
-  },
-  {
-    title: "Sample Project 2",
-    description: "This is a sample project description. Replace with real data.",
-    image: placeholderImg,
-    github: "https://github.com/Lakshmadaan1609/sample-project-2",
-    live: "",
-    tags: ["React", "Node.js"],
-    highlights: ["Feature 1", "Feature 2", "Feature 3"],
-  },
-  {
-    title: "Sample Project 3",
-    description: "This is a sample project description. Replace with real data.",
-    image: placeholderImg,
-    github: "https://github.com/Lakshmadaan1609/sample-project-3",
-    live: "",
-    tags: ["React", "Node.js"],
-    highlights: ["Feature 1", "Feature 2", "Feature 3"],
-  },
-];
-
-// Helper to get perView from keen-slider instance
-function getPerView(slider) {
-  if (!slider.current) return 3;
-  return slider.current.options.slides?.perView || 3;
-}
-
-// ProjectCard component for reuse
-function ProjectCard({ project, onView, isFeatured }) {
-  return (
-    <div className={
-      isFeatured
-        ? "bg-[#181f2a] rounded-3xl shadow-2xl border-2 border-yellow-700/30 flex flex-col md:flex-row overflow-hidden w-full max-w-3xl min-h-[380px] transition-all duration-300 ease-in-out"
-        : "keen-slider__slide bg-[#181f2a] rounded-xl shadow-lg flex flex-col overflow-hidden border border-[#232b3b] cursor-pointer transition-all duration-200 hover:shadow-yellow-200/20 hover:scale-[1.01] focus:scale-[1.01]"
-    }>
-      <img
-        src={project.image}
-        alt={project.title}
-        className={isFeatured ? "w-full md:w-2/3 h-56 md:h-auto object-cover object-top transition-transform duration-300 ease-in-out hover:scale-105" : "w-full h-40 object-cover object-top transition-transform duration-200 hover:scale-105"}
-        style={isFeatured ? { minHeight: 180 } : {}}
-      />
-      <div className={isFeatured ? "flex-1 flex flex-col p-8 justify-between" : "p-5 flex flex-col flex-1"}>
-        <div>
-          <h3 className={isFeatured ? "text-2xl font-bold text-white mb-2 line-clamp-1" : "text-lg font-bold text-white mb-1 line-clamp-1"}>{project.title}</h3>
-          {/* Special badges for ZakoMomo and Powerpay */}
-          {project.title === "ZakoMomo" && (
-            <div className="flex flex-wrap gap-2 mb-4">
-              {project.description.split('.').filter(Boolean).map((feature, i) => (
-                <span
-                  key={i}
-                  className="bg-gradient-to-r from-yellow-400 to-pink-400 text-[#181f2a] px-2 py-0.5 rounded-full text-sm font-semibold shadow"
-                >
-                  {feature.trim()}
-                </span>
-              ))}
-            </div>
-          )}
-          {project.title === "Powerpay" && (
-            <div className="flex flex-wrap gap-2 mb-4">
-              {["GSAP Animations", "Lottie Animations", "React", "TailwindCSS"].map((feature, i) => (
-                <span
-                  key={i}
-                  className="bg-gradient-to-r from-green-400 to-blue-400 text-[#181f2a] px-2 py-0.5 rounded-full text-sm font-semibold shadow"
-                >
-                  {feature}
-                </span>
-              ))}
-            </div>
-          )}
-          <p className={isFeatured ? "text-gray-400 text-base mb-4 line-clamp-3" : "text-gray-400 text-sm mb-2 line-clamp-2"}>{project.description}</p>
-          <div className={isFeatured ? "flex flex-wrap gap-3 mb-6" : "flex flex-wrap gap-2 mb-3"}>
-            {project.tags.map((tag, tagIndex) => (
-              <span
-                key={tagIndex}
-                className={isFeatured ? "bg-[#232b3b] text-gray-200 px-4 py-1 rounded-full text-base font-medium transition-colors duration-200 hover:bg-yellow-400 hover:text-[#181f2a]" : "bg-[#232b3b] text-gray-200 px-3 py-1 rounded-full text-xs font-medium transition-colors duration-200 hover:bg-yellow-400 hover:text-[#181f2a]"}
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
-        {/* Action buttons for featured, icons for other */}
-        {isFeatured ? (
-          <button
-            className="mt-auto flex items-center gap-2 bg-yellow-400 text-[#181f2a] hover:bg-yellow-500 font-semibold px-6 py-3 rounded transition-all duration-200 ease-in-out shadow hover:shadow-lg active:scale-95 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-            onClick={onView}
-          >
-            <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2">
-              <rect x="3" y="3" width="16" height="16" rx="4" />
-              <path d="M11 11h.01" />
-            </svg>
-            View Project
-          </button>
-        ) : (
-          <div className="flex gap-4 mt-4">
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-300 hover:text-yellow-400 transition"
-              title="GitHub"
-            >
-              <Github size={22} />
-            </a>
-            {project.live ? (
-              <a
-                href={project.live}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-300 hover:text-green-400 transition"
-                title="Live (Vercel)"
-              >
-                <ExternalLink size={22} />
-              </a>
-            ) : (
-              <span className="text-gray-400" title="No live link">
-                <Triangle size={22} />
-              </span>
-            )}
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
-
-export default function ProjectSection() {
-  const [modalProject, setModalProject] = useState(null);
-  const [showOtherProjects, setShowOtherProjects] = useState(false);
-  const [sliderRef, slider] = useKeenSlider({
-    loop: true,
-    slides: { perView: 1 },
-    breakpoints: {
-      "(max-width: 768px)": { slides: { perView: 1 } },
+  const projects = [
+    {
+      id: 1,
+      title: "Learn French With Anks",
+      description: "A comprehensive French learning platform for Canada PR preparation with TEF/TCF exam coaching, real-time chat support, and personalized learning paths.",
+      image: lfwa,
+      technologies: ["Next.js", "WebSockets", "Real-time Chat", "TypeScript"],
+      category: "Education",
+      type: "Learning Platform",
+      liveUrl: "https://learn-frenchwith-anks-frontend.vercel.app/",
+      githubUrl: "https://github.com/yourusername/lfwa",
+      featured: true
     },
-  });
-  const [otherSliderRef, otherSlider] = useKeenSlider({
-    loop: false,
-    slides: { perView: 3, spacing: 16 },
-    breakpoints: {
-      "(max-width: 768px)": { slides: { perView: 1, spacing: 8 } },
-      "(max-width: 1024px)": { slides: { perView: 2, spacing: 12 } },
+    {
+      id: 2,
+      title: "PowerPay Payment System",
+      description: "Secure payment processing application with real-time transaction monitoring, fraud detection, and multi-currency support.",
+      image: powerPay,
+      technologies: ["React", "Stripe API", "Node.js", "PostgreSQL"],
+      category: "Fintech",
+      type: "Payment System",
+      liveUrl: "#",
+      githubUrl: "https://github.com/yourusername/powerpay",
+      featured: true
     },
-  });
+    {
+      id: 3,
+      title: "Zako Momo Delivery App",
+      description: "Food delivery application with real-time order tracking, payment integration, and restaurant management system.",
+      image: zakoMomo,
+      technologies: ["React Native", "Firebase", "Google Maps API", "Stripe"],
+      category: "Mobile App",
+      type: "Food Delivery",
+      liveUrl: "#",
+      githubUrl: "https://github.com/yourusername/zako-momo",
+      featured: true
+    },
+    {
+      id: 4,
+      title: "HAR Healthcare System",
+      description: "Healthcare management system with patient records, appointment scheduling, and medical data analytics.",
+      image: har,
+      technologies: ["React", "Python", "Django", "PostgreSQL"],
+      category: "Healthcare",
+      type: "Management System",
+      liveUrl: "#",
+      githubUrl: "https://github.com/yourusername/har-healthcare",
+      featured: false
+    },
+    {
+      id: 5,
+      title: "PCD Project Management",
+      description: "Project collaboration and development platform with version control, task management, and team communication tools.",
+      image: pcd,
+      technologies: ["Next.js", "TypeScript", "Prisma", "WebSocket"],
+      category: "Productivity",
+      type: "Project Management",
+      liveUrl: "#",
+      githubUrl: "https://github.com/yourusername/pcd-platform",
+      featured: false
+    },
+    {
+      id: 6,
+      title: "Smart Bed Monitoring System",
+      description: "IoT-based smart bed system with health monitoring, sleep tracking, and emergency alerts.",
+      image: bed,
+      technologies: ["React", "IoT", "Python", "TensorFlow"],
+      category: "IoT",
+      type: "Health Monitoring",
+      liveUrl: "#",
+      githubUrl: "https://github.com/yourusername/smart-bed",
+      featured: false
+    }
+  ];
+
+  const featuredProjects = projects.filter(project => project.featured);
+  const otherProjects = projects.filter(project => !project.featured);
 
   return (
-    <section className="py-20 px-4 min-h-[80vh]">
-      <div className="container mx-auto max-w-6xl">
-        {/* Featured Projects */}
-        <div className="mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-8 text-white text-center">
-            <span className="text-yellow-500">Featured Projects</span>
+    <section id="projects" className="py-24 px-4 relative">
+      <div className="container mx-auto max-w-7xl">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="flex justify-between items-center mb-12"
+        >
+          <h2 className="text-3xl md:text-4xl font-header bg-gradient-to-r from-blue-500 via-yellow-400 to-yellow-600 dark:from-purple-400 dark:via-yellow-400 dark:to-yellow-600 bg-clip-text text-transparent">
+            Recent <span className="text-base font-normal">Projects</span>
           </h2>
-          <div className="relative">
-            <div ref={sliderRef} className="keen-slider">
-              {featuredProjects.map((project, idx) => (
-                <div key={project.title + idx} className="keen-slider__slide flex justify-center">
-                  <ProjectCard
-                    project={project}
-                    isFeatured={true}
-                    onView={() => {
-                      if (project.live) {
-                        window.open(project.live, '_blank', 'noopener,noreferrer');
-                      } else {
-                        setModalProject(project);
-                      }
+          <a
+            href="mailto:laksh@example.com"
+            className="text-yellow-600 hover:text-yellow-700 font-medium transition-colors cursor-pointer"
+          >
+            Get In Touch →
+          </a>
+        </motion.div>
+
+        {/* Featured Projects */}
+        <Element name="featured-projects">
+          <div className="flex gap-6 overflow-x-auto pb-4 mb-16 scrollbar-hide">
+            {featuredProjects.map((project, index) => (
+              <motion.div
+                key={project.id}
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="group relative bg-white/10 backdrop-blur-sm border border-yellow-600/20 rounded-3xl overflow-hidden hover:bg-yellow-600/10 transition-all duration-500 ease-in-out min-w-[350px] max-w-[400px] flex-shrink-0"
+                onMouseEnter={() => setHoveredProject(project.id)}
+                onMouseLeave={() => setHoveredProject(null)}
+              >
+                <div className="relative h-64 overflow-hidden">
+                  <img 
+                    src={project.image} 
+                    alt={project.title}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                      e.target.nextElementSibling.style.display = 'flex';
                     }}
                   />
+                  
+                  
+                  {/* Category Tags */}
+                  <div className="absolute top-4 right-4 flex flex-col gap-2">
+                    <span className="px-3 py-1 bg-white/90 text-gray-800 text-xs rounded-full font-medium">
+                      {project.category}
+                    </span>
+                    <span className="px-3 py-1 bg-white/90 text-gray-800 text-xs rounded-full font-medium">
+                      {project.type}
+                    </span>
+                  </div>
                 </div>
-              ))}
-            </div>
-            {/* Slider Arrows */}
-            <button
-              className="absolute left-0 top-1/2 -translate-y-1/2 bg-[#181f2a] hover:bg-yellow-600/20 text-white rounded-full p-2 shadow transition z-10"
-              onClick={() => slider.current?.prev()}
-              aria-label="Previous featured project"
-              style={{ left: '-2.5rem' }}
-            >
-              <svg width="32" height="32" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 26l-8-10 8-10" /></svg>
-            </button>
-            <button
-              className="absolute right-0 top-1/2 -translate-y-1/2 bg-[#181f2a] hover:bg-yellow-600/20 text-white rounded-full p-2 shadow transition z-10"
-              onClick={() => slider.current?.next()}
-              aria-label="Next featured project"
-              style={{ right: '-2.5rem' }}
-            >
-              <svg width="32" height="32" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 6l8 10-8 10" /></svg>
-            </button>
-            {/* Dots */}
-            <div className="flex justify-center gap-2 mt-6">
-              {featuredProjects.map((_, i) => (
-                <button
-                  key={i}
-                  className={`w-3 h-3 rounded-full ${slider.current?.track.details.rel === i ? "bg-yellow-400" : "bg-gray-600"}`}
-                  onClick={() => slider.current?.moveToIdx(i)}
-                  aria-label={`Go to featured project ${i + 1}`}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Other Projects Dropdown */}
-        <div className="relative mt-12">
-          <button
-            className="flex items-center gap-2 px-6 py-3 bg-yellow-400 text-[#181f2a] font-semibold rounded-full shadow hover:bg-yellow-500 transition mb-4 mx-auto"
-            onClick={() => setShowOtherProjects((prev) => !prev)}
-            aria-expanded={showOtherProjects}
-          >
-            {showOtherProjects ? "Hide Other Projects" : "Show Other Projects"}
-            <svg
-              className={`transition-transform duration-300 ${showOtherProjects ? "rotate-180" : "rotate-0"}`}
-              width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2"
-            >
-              <path d="M6 9l6 6 6-6" />
-            </svg>
-          </button>
-          <Transition
-            show={showOtherProjects}
-            enter="transition duration-300 ease-out"
-            enterFrom="opacity-0 -translate-y-4"
-            enterTo="opacity-100 translate-y-0"
-            leave="transition duration-200 ease-in"
-            leaveFrom="opacity-100 translate-y-0"
-            leaveTo="opacity-0 -translate-y-4"
-          >
-            <div>
-              <h3 className="text-2xl font-bold text-white mb-6">Other Projects</h3>
-          <div ref={otherSliderRef} className="keen-slider">
-            {otherProjects.map((project, idx) => (
-                  <ProjectCard
-                key={project.title + idx}
-                    project={project}
-                    isFeatured={false}
-                    onView={e => { e.stopPropagation(); setModalProject(project); }}
-                  />
-                ))}
-              </div>
-          {/* Dots for Other Projects */}
-          <div className="flex justify-center gap-2 mt-6">
-            {Array.from({ length: Math.ceil(otherProjects.length / getPerView(otherSlider)) }).map((_, i) => (
-              <button
-                key={i}
-                className={`w-3 h-3 rounded-full ${
-                  otherSlider.current && Math.floor(otherSlider.current.track.details.rel / getPerView(otherSlider)) === i
-                    ? "bg-yellow-400"
-                    : "bg-gray-600"
-                }`}
-                onClick={() => otherSlider.current?.moveToIdx(i * getPerView(otherSlider))}
-                aria-label={`Go to other project page ${i + 1}`}
-              />
+                
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold mb-3 group-hover:text-yellow-600 transition-all duration-500 ease-in-out">
+                    {project.title}
+                  </h3>
+                  <p className="text-muted-foreground mb-4 leading-relaxed text-sm group-hover:text-gray-300 transition-all duration-500 ease-in-out">
+                    {project.description}
+                  </p>
+                  
+                  {/* Hover Details Overlay */}
+                  <div className="absolute inset-0 bg-black/90 backdrop-blur-sm rounded-3xl opacity-0 group-hover:opacity-100 transition-all duration-500 ease-in-out transform group-hover:scale-105 flex flex-col justify-center items-center p-6">
+                    <div className="text-center">
+                      <h4 className="text-2xl font-bold text-white mb-4">{project.title}</h4>
+                      <p className="text-gray-300 mb-6 leading-relaxed">{project.description}</p>
+                      
+                      <div className="flex flex-wrap gap-2 mb-6 justify-center">
+                        {project.technologies.map((tech) => (
+                          <span
+                            key={tech}
+                            className="px-3 py-1 bg-yellow-600/20 text-yellow-400 text-sm rounded-full border border-yellow-600/30"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                      
+                      <div className="flex gap-4">
+                        <a
+                          href={project.liveUrl}
+                          className="flex items-center gap-2 px-6 py-3 bg-yellow-600 hover:bg-yellow-700 text-white rounded-lg transition-all duration-300 ease-in-out font-medium hover:scale-105 hover:shadow-lg"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <Eye className="w-4 h-4" />
+                          Live Demo
+                        </a>
+                        <a
+                          href={project.githubUrl}
+                          className="flex items-center gap-2 px-6 py-3 border border-yellow-600/50 hover:bg-yellow-600/10 text-yellow-400 rounded-lg transition-all duration-300 ease-in-out font-medium hover:scale-105 hover:shadow-lg"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <Github className="w-4 h-4" />
+                          View Code
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="flex justify-end">
+                    <a
+                      href={project.liveUrl}
+                      className="flex items-center justify-center w-10 h-10 bg-black hover:bg-gray-800 text-white rounded-full transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-lg"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <ExternalLink className="w-5 h-5" />
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
             ))}
           </div>
-            </div>
-          </Transition>
-        </div>
+        </Element>
 
-        {/* Modal for Project Details */}
-        {modalProject && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur">
-            <div className="bg-[#181f2a] rounded-2xl shadow-2xl max-w-lg w-full p-8 relative text-white animate-fadeIn">
-              <button
-                className="absolute top-4 right-4 text-gray-400 hover:text-yellow-400"
-                onClick={() => setModalProject(null)}
-                aria-label="Close"
-              >
-                <X className="w-6 h-6" />
-              </button>
-              <img
-                src={modalProject.image}
-                alt={modalProject.title}
-                className="w-full h-48 object-cover rounded-xl mb-4"
-              />
-              <h3 className="text-2xl font-bold mb-2">{modalProject.title}</h3>
-              <p className="text-gray-300 mb-4">{modalProject.description}</p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                {modalProject.tags.map((tag, tagIndex) => (
-                  <span
-                    key={tagIndex}
-                    className="bg-[#232b3b] text-gray-200 px-3 py-1 rounded-full text-xs font-medium"
-                  >
-                    {tag}
-                  </span>
-                ))}
+
+        {/* Call to Action */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-center mt-16"
+        >
+          <div className="bg-gradient-to-r from-yellow-600/10 to-blue-500/10 backdrop-blur-sm border border-yellow-600/20 rounded-2xl p-8 mb-8">
+            <div className="flex flex-col md:flex-row items-center justify-center gap-8">
+              <div className="text-center">
+                <div className="text-4xl font-bold text-yellow-600 mb-2">4+</div>
+                <div className="text-sm text-muted-foreground">Years Coding</div>
               </div>
-              <ul className="list-disc pl-5 mb-4 text-sm text-gray-400">
-                {modalProject.highlights.map((hl, i) => (
-                  <li key={i}>{hl}</li>
-                ))}
-              </ul>
-              <div className="flex gap-4 mt-2">
-                <a
-                  href={modalProject.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1 text-gray-300 hover:text-yellow-400 transition-colors"
-                >
-                  <Github className="w-5 h-5" />
-                  <span>GitHub</span>
-                </a>
-                {modalProject.live && (
-                  <a
-                    href={modalProject.live}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-1 text-gray-300 hover:text-green-400 transition-colors"
-                  >
-                    <ExternalLink className="w-5 h-5" />
-                    <span>Live</span>
-                  </a>
-                )}
+              <div className="hidden md:block w-px h-16 bg-gradient-to-b from-yellow-600 to-blue-500"></div>
+              <div className="text-center">
+                <div className="text-4xl font-bold text-blue-500 mb-2">1</div>
+                <div className="text-sm text-muted-foreground">Year Working</div>
+              </div>
+              <div className="hidden md:block w-px h-16 bg-gradient-to-b from-yellow-600 to-blue-500"></div>
+              <div className="text-center">
+                <div className="text-4xl font-bold text-green-500 mb-2">50+</div>
+                <div className="text-sm text-muted-foreground">Projects Built</div>
               </div>
             </div>
+            <p className="text-lg text-foreground mt-6 font-medium">
+              Ready to bring your ideas to life with modern technology
+            </p>
           </div>
-        )}
+          
+          <a
+            href="mailto:laksh@example.com"
+            className="inline-block bg-gradient-to-r from-yellow-600 to-blue-500 hover:from-yellow-700 hover:to-blue-600 text-white px-8 py-4 rounded-xl transition-all duration-300 font-medium shadow-lg hover:shadow-xl hover:scale-105"
+          >
+            Let's Discuss Your Project
+          </a>
+        </motion.div>
+
+        {/* Scroll to Top Button */}
+        
       </div>
+      
     </section>
   );
-} 
+};
+
+export default ProjectSection;

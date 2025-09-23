@@ -6,7 +6,7 @@ export const AboutSection = () => {
     <section id= "about" className="py-20 px-4 relative">
         {" "}
         <div className="container mx-auto max-w-5xl">
-            <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center bg-gradient-to-r from-blue-500 via-yellow-400 to-yellow-600 dark:from-purple-400 dark:via-yellow-400 dark:to-yellow-600 bg-clip-text text-transparent">
+            <h2 className="text-3xl md:text-4xl font-header mb-12 text-center bg-gradient-to-r from-blue-500 via-yellow-400 to-yellow-600 dark:from-purple-400 dark:via-yellow-400 dark:to-yellow-600 bg-clip-text text-transparent">
                 About <span className="text-base font-normal">Me</span>
             </h2>
 
@@ -29,8 +29,8 @@ export const AboutSection = () => {
                         <a href="https://mail.google.com/mail/u/0/#inbox?compose=DmwnWsdDxHThRBVznXbhtqrRSZrGmSKzNMsGgGMfJJFdqTqJTzClXKLlHQVFVncMBZbqMwPQhLng" className="inline-block bg-yellow-600 hover:bg-yellow-700 text-white px-6 py-3 rounded-lg transition-colors duration-100 font-medium">
                             Get in Touch
                         </a>
-                        <a href="/Laksh_Resume.pdf" 
-                        download="Laksh_Resume.pdf"
+                        <a href="/Laksh_CV.pdf" 
+                        download="Laksh_CV.pdf"
                         className="border-foreground hover:bg-white hover:text-yellow-600 text-white px-6 py-3 rounded-lg transition-colors duration-100 font-medium">
                             Download CV
                         </a>

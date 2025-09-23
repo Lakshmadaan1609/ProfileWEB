@@ -15,7 +15,7 @@ export const HeroSection = () => {
                         <span className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent">Madaan</span>
                     </h1>
                     <h2 className="text-2xl md:text-3xl font-semibold text-gray-300 mb-4">
-                        Web Developer 
+                        Software Engineer 
                     </h2>
                     <div className="flex gap-4 justify-center md:justify-start mb-6">
                         <a
@@ -40,7 +40,7 @@ export const HeroSection = () => {
                         </a>
                     </div>
                     <p className="text-gray-400 max-w-xl mb-8">
-                        I build modern, responsive web applications and bring creative digital solutions to life..
+                        I build modern, responsive Software Solutions and bring Digital creativity to life..
                     </p>
                 </div>
                 <div className="flex-1 flex justify-center md:justify-end">

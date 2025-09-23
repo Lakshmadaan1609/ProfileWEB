@@ -48,7 +48,7 @@ export const SkillsSection = () => {
   return (
     <section id="skills" className="py-24 px-4">
       <div className="container mx-auto max-w-6xl">
-        <h2 className="text-3xl md:text-4xl font-bold mb-2 text-center bg-gradient-to-r from-blue-500 via-yellow-400 to-yellow-600 dark:from-purple-400 dark:via-yellow-400 dark:to-yellow-600 bg-clip-text text-transparent">
+        <h2 className="text-3xl md:text-4xl font-header mb-2 text-center bg-gradient-to-r from-blue-500 via-yellow-400 to-yellow-600 dark:from-purple-400 dark:via-yellow-400 dark:to-yellow-600 bg-clip-text text-transparent">
           Technologies I Work With <span className="text-base font-normal">(My Skills)</span>
         </h2>
         <p className="text-muted-foreground text-center mb-12">

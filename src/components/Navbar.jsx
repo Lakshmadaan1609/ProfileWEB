@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom";
+import { Link as ScrollLink } from "react-scroll";
 import { cn } from "@/lib/utils";
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 
 const navItems = [
-    {name : "Home", href: "#hero"},
-    {name : "About", href: "#about"},
-    {name : "Skills", href: "#skills"},
-    {name : "Projects", href: "#projects"},
+    {name : "Home", href: "/"},
+    {name : "About", href: "about", isScroll: true},
+    {name : "Skills", href: "skills", isScroll: true},
+    {name : "Projects", href: "projects", isScroll: true},
     {name : "Music", href: "/music", isExternal: true},
 ]
 
@@ -52,15 +53,27 @@ export const Navbar = () => {
                         >
                             {item.name}
                         </Link>
-                    ) : (
-                        <a 
+                    ) : item.isScroll ? (
+                        <ScrollLink 
                             key={key} 
-                            href={item.href}
+                            to={item.href}
+                            smooth={true}
+                            duration={800}
+                            offset={-80}
+                            className="text-foreground hover:text-yellow-600 hover:scale-105 transition-all 
+                            duration-100 hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.5)] cursor-pointer"
+                        >
+                            {item.name}
+                        </ScrollLink>
+                    ) : (
+                        <Link 
+                            key={key} 
+                            to={item.href}
                             className="text-foreground hover:text-yellow-600 hover:scale-105 transition-all 
                             duration-100 hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]"
                         >
                             {item.name}
-                        </a>
+                        </Link>
                     )
                 ))}
             </div>
@@ -96,16 +109,29 @@ export const Navbar = () => {
                             >
                                 {item.name}
                             </Link>
-                        ) : (
-                            <a 
+                        ) : item.isScroll ? (
+                            <ScrollLink 
                                 key={key} 
-                                href={item.href}
+                                to={item.href}
+                                smooth={true}
+                                duration={800}
+                                offset={-80}
+                                className="text-foreground hover:text-yellow-600 hover:scale-105 transition-all 
+                                duration-100 hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.5)] cursor-pointer"
+                                onClick={() => setIsMenuOpen(false)}
+                            >
+                                {item.name}
+                            </ScrollLink>
+                        ) : (
+                            <Link 
+                                key={key} 
+                                to={item.href}
                                 className="text-foreground hover:text-yellow-600 hover:scale-105 transition-all 
                                 duration-100 hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]"
                                 onClick={() => setIsMenuOpen(false)}
                             >
                                 {item.name}
-                            </a>
+                            </Link>
                         )
                     ))}
                 </div>

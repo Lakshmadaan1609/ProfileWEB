@@ -2,13 +2,13 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ThemeToggle } from "./components/themeToggle";
 import { Home } from "./pages/Home";
 import { MusicPage } from "./pages/MusicPage";
+import { Projects } from "./pages/Projects";
 import { StarBackground } from "@/components/StarBackground";
 import { Navbar } from "@/components/Navbar";
 import { useState, useEffect } from "react";
 import { HeroSection } from "@/components/HeroSection";
 import { AboutSection } from "@/components/AboutSection";
 import { SkillsSection } from "@/components/SkillsSection";
-import ProjectSection from "@/components/ProjectSection";
 
 function App() {
   return (
@@ -18,6 +18,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/music" element={<MusicPage />} />
+          <Route path="/projects" element={<Projects />} />
         </Routes>
       </div>
     </BrowserRouter>
