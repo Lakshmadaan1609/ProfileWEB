@@ -13,16 +13,18 @@ export const AboutSection = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center justify-center mt-25">
                 <div className="space-y-6">
                     <h3 className="text-2xl md:text-3xl font-semibold text-center justify-center">
-                     Front-End Developer 
+                     Software Developer 
                         & AI Enthusiast
                         
                     </h3>
                     <p className="text-base lg:text-lg text-gray-700 leading-relaxed px-4 lg:px-8">
-                        A Passionate Learner of Technolgies,
-                        I Specialize Myself in creating websites
-                        which are responsive, Modern UI, Accesible which StandOut
-                        From those boring Websites using Mordern Technolgies 
-                        like ReactJS, tailwindCss and Artificial Inteligence 
+                        A Passionate Full-Stack Developer,
+                        I Specialize in building scalable web applications
+                        with real-time features, microservices architecture,
+                        and modern technologies. Currently working with
+                        Next.js, Nest.js, WebSockets, and RabbitMQ to create
+                        robust, high-performance solutions that stand out
+                        from traditional web applications.
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center">
