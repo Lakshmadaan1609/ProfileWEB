@@ -42,8 +42,8 @@ export const AboutSection = () => {
                 <div className="grid grid-cols-1 gap-6">
                     <div className="bg-white/10 backdrop-blur-sm border border-yellow-600/20 rounded-xl p-6 hover:bg-yellow-600/10 transition-all duration-300">
                         <Code className="w-10 h-10 text-yellow-600 -mt-4"/>
-                        <h4 className="text-xl font-semibold mb-2">Frontend Development</h4>
-                        <p className="text-gray-700">Building responsive and modern web applications using ReactJS and Tailwind CSS</p>
+                        <h4 className="text-xl font-semibold mb-2">Full Stack Development</h4>
+                        <p className="text-gray-700">Building responsive and modern web applications using Latest Tech Stack</p>
                     </div>
                     <div className="bg-white/10 backdrop-blur-sm border border-yellow-600/20 rounded-xl p-6 hover:bg-yellow-600/10 transition-all duration-300">
                         <Brain className="w-10 h-10 text-yellow-600 -mt-4"/>
