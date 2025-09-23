@@ -47,8 +47,19 @@ export const HeroSection = () => {
                     <img
                         src={myPhoto}
                         alt="Laksh Madaan"
-                        className="w-64 h-64 md:w-80 md:h-80 object-cover rounded-full shadow-lg"
-                        style={{ background: "#6c47b6" }}
+                        className="w-64 h-64 md:w-80 md:h-80 object-cover rounded-full shadow-lg select-none"
+                        style={{ 
+                            background: "#6c47b6",
+                            userSelect: "none",
+                            WebkitUserSelect: "none",
+                            MozUserSelect: "none",
+                            msUserSelect: "none",
+                            WebkitUserDrag: "none",
+                            WebkitTouchCallout: "none"
+                        }}
+                        draggable={false}
+                        onDragStart={(e) => e.preventDefault()}
+                        onContextMenu={(e) => e.preventDefault()}
                     />
                 </div>
             </div>
